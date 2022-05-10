@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field, non_constant_identifier_names, prefer_const_constructors
+// ignore_for_file: unused_field, non_constant_identifier_names, prefer_const_constructors, todo
 
 import 'package:flutter/material.dart';
 
@@ -37,52 +37,47 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // maxLines = maxLines,
-      // keyboardType = _keyboardType,
       obscureText: isObscure,
       textCapitalization:
           isCaptalized ? TextCapitalization.words : TextCapitalization.none,
-      // textInputAction: _inputAction,
-      cursorColor: Colors.white,
       validator: (value) => _validator(value!),
       decoration: InputDecoration(
         labelText: isLabelEnabled ? _label : null,
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
+        labelStyle: TextStyle(),
         hintText: _hint,
-        hintStyle: TextStyle(
-          color: Colors.white,
-        ),
+        hintStyle: TextStyle(),
         errorStyle: TextStyle(
-          color: Colors.redAccent,
           fontWeight: FontWeight.bold,
         ),
+
+        //TODO: FOCUS SELECT
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: BorderSide(
-            color: Colors.blueGrey,
             width: 1,
           ),
         ),
+
+        //TODO: ENABLE INPUT ( INPUT SEM SELECAO)
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: BorderSide(
-            color: Colors.white,
             width: 1,
           ),
         ),
+
+        //TODO: ERROR INPUT
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: BorderSide(
-            color: Colors.redAccent,
             width: 1,
           ),
         ),
+
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: BorderSide(
-            color: Colors.redAccent,
             width: 1,
           ),
         ),

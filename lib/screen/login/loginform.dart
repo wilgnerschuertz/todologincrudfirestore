@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, unused_field, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-
-import '../firestore/validator.dart';
-import '../utils/customform.dart';
+import '../../firestore/database.dart';
+import '../../firestore/validator.dart';
+import '../../utils/customform.dart';
+import '../homescreen.dart';
 
 class LoginForm extends StatefulWidget {
   final FocusNode focusNode;
@@ -19,6 +20,8 @@ class _LoginFormState extends State<LoginForm> {
 
   final _loginInFormKey = GlobalKey<FormState>();
 
+  String getId = '';
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -30,16 +33,18 @@ class _LoginFormState extends State<LoginForm> {
             child: Column(
               children: [
                 CustomFormField(
-                  controller: _uidController,
-                  focusNode: widget.focusNode,
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.done,
-                  label: 'Unique UserID',
-                  hint: 'Enter your unique identifiquer',
-                  validator: (value) => Validator.validatorUserId(
-                    uid: value,
-                  ),
-                )
+                    controller: _uidController,
+                    focusNode: widget.focusNode,
+                    keyboardType: TextInputType.text,
+                    inputAction: TextInputAction.done,
+                    label: 'Entre com seu Usuário',
+                    hint: 'Por Favor entre com seu Usuário!',
+                    validator: (value) {
+                      Validator.validatorUserId(
+                        uid: value,
+                      );
+                      getId = value;
+                    })
               ],
             ),
           ),
@@ -50,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                    Colors.white,
+                    Color.fromARGB(255, 66, 216, 181),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -58,15 +63,27 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  widget.focusNode.unfocus();
+
+                  if (_loginInFormKey.currentState!.validate()) {
+                    Database.userId = getId;
+
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
+                  }
+                },
                 child: Padding(
                   padding: EdgeInsets.only(top: 16, bottom: 16),
                   child: Text(
-                    'Login',
+                    'Entrar',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black,
+                      // color: Colors.black,
                       letterSpacing: 2,
                     ),
                   ),
